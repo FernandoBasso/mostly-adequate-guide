@@ -19,6 +19,8 @@ const {
 
 const filenameRe = base => new RegExp(`${base}_([a-z]).js`);
 
+const filenameReAnswer = base => new RegExp(`${base}_([a-z])-answer.js`);
+
 const readDir = d => fs.readdirSync(d);
 
 const readFile = f => fs.readFileSync(f).toString('utf-8');
@@ -34,6 +36,8 @@ const evalFiles = compose(eval, mconcat(''), map(readFile)); // eslint-disable-l
 const listToMap = xs => xs.reduce((m, [k, v]) => m.set(k, v), new Map());
 
 
+const isPraticeEnv = process.env.NODE_ENV === 'practice';
+
 /* -------- Utils -------- */
 
 const readExercises = (ch, sections = ['exercise', 'solution', 'validation']) => {
@@ -41,7 +45,8 @@ const readExercises = (ch, sections = ['exercise', 'solution', 'validation']) =>
 
   const partition = reduce((pts, f) => {
     forEach((section) => {
-      const re = filenameRe(section);
+      const reFn = /^exercise/.test(section) && isPraticeEnv ? filenameReAnswer : filenameRe;
+      const re = reFn(section);
 
       if (re.test(f)) {
         const spec = re.exec(f)[1];
@@ -59,7 +64,7 @@ const defineSpecs = curry((input, exercises) => {
   const support = path.join(__dirname, 'support.js');
 
   forEach(([num, exercise]) => {
-    it(`exercise_${num}`, () => {
+    it(`exercise_${num}${isPraticeEnv ? '-answer' : ''}`, () => {
       const validation = exercises.get('validation').get(num);
 
       evalFiles([support, exercise, validation]);
