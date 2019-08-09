@@ -1,4 +1,10 @@
-[![cover](images/cover.png)](SUMMARY.md)
+
+
+## My Pratice Branch
+
+NOTE: This fork includes a `pratice` branch which I use for taking notes and doing the proposed exercises.
+
+<!-- [![cover](images/cover.png)](SUMMARY.md) -->
 
 ## About this book
 
