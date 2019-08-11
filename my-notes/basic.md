@@ -61,7 +61,7 @@ QUESTION: What is the problem with both snippets below?
 
 The problem is that with empty arrays and _no default initial values_ for `reduce`, the JS engine doesn't have anything to return and throws an exception.
 
-TIP: Always provide an initial, default value for your reduces. 0, for reduces that sum or subtract, 1 for addition and subtraction, empty string for strings. For other cases, consider each one carefully as for which should be an appropriate default value.
+TIP: Always provide an initial, default value for your reduces. 0, for reduces that sum or subtract, 1 for addition and subtraction, empty string for strings. For other cases, consider each one carefully as for which should be an appropriate default value. Generally, empty arrays and empty objects are likely options.
 
 ANSWER: Correct:
 
