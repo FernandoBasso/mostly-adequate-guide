@@ -4,6 +4,20 @@
 /* eslint-disable prefer-arrow-callback */
 
 
+/* --------- Log Helpers --------- */
+const l = console.log.bind(console); // eslint-disable-line no-console
+const i = console.info.bind(console); // eslint-disable-line no-console
+
+// Curried log.
+// cl :: String -> Object -> Object
+const cl = function curriedLog(label) {
+  return function logObj(obj) {
+    l(label, obj);
+    return obj;
+  };
+};
+
+
 /* ---------- Internals ---------- */
 
 function namedAs(value, fn) {
@@ -1031,11 +1045,15 @@ const readfile = curry(function readfile(encoding, file) {
   return Task.of(`content of ${file} (${encoding})`);
 });
 
-
 /* ---------- Exports ---------- */
 
 if (typeof module === 'object') {
   module.exports = {
+    // Log Helpers
+    l, // log
+    i, // info
+    cl, // curried log
+
     // Utils
     withSpyOn,
 
@@ -1093,6 +1111,7 @@ if (typeof module === 'object') {
     unsafePerformIO,
 
     // Chapter 04
+    l,
     keepHighest,
 
     // Chapter 05
